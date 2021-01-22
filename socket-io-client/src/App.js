@@ -7,18 +7,20 @@ const App = () => {
 
   useEffect(() => {
     const socket = socketIOClient(endpoint, { transport : ['websocket'] });
-    socket.on("FromAPI", data => setResponse({ response: data }));
-  })
+    socket.on("Task", data => setResponse({ response: data }));
+  }, []);
   console.log(response)
    
     return (
-      <div style={{ textAlign: "center" }}>
-        {response
-          ? <p>
-              The temperature in {response?.response?.location?.name} is: {response?.response?.current?.temp_c} °C
-            </p>
-          : <p>Loading...</p>}
-      </div>
+      <>
+        <div style={{ textAlign: "center" }}>
+          {response
+            ? <p>
+                Latest Task: {response?.response?.task}
+              </p>
+            : <p>Loading...</p>}
+        </div>
+      </>
     );
   }
 
